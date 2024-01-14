@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Marvel" Shell.NavBarIsVisible="False" x:DataType="local:MainViewModel" x:Class="Marvel.MainPage">
+
+    <Grid RowDefinitions="*,auto">
+
+        <ActivityIndicator HorizontalOptions="Center" Color="{StaticResource Primary}" BackgroundColor="Transparent" IsVisible="{Binding IsLoading, Mode=OneWay}" IsRunning="{Binding IsLoading, Mode=OneWay}" />
+
+        <StackLayout Spacing="12" Margin="12" Grid.Row="0">
+
+            <StackLayout Spacing="12">
+                <Label TextColor="{StaticResource Primary}" Text="BUSCA MARVEL TESTE E FRONTEND" FontSize="22" />
+
+                <Label TextColor="{StaticResource Primary}" Text="Nome do Personagem" />
+
+                <Frame Padding="0">
+                    <Entry Placeholder="search" Margin="18,3" FontSize="14" Text="{Binding Search, Mode=TwoWay}" ReturnCommand="{Binding SearchCommand}" ReturnType="Send" />
+                </Frame>
+
+            </StackLayout>
+
+            <ScrollView>
+                <StackLayout Spacing="12">
+
+                    <Label FontSize="16" TextColor="White" BackgroundColor="{StaticResource Primary}" HorizontalTextAlignment="Center" Text="Nome" />
+
+                    <CollectionView ItemsSource="{Binding Characters}" SelectedItem="{Binding Character, Mode=TwoWay}" SelectionChangedCommand="{Binding SelectCommand}" SelectionMode="Single" >
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="local:Character">
+                                <Grid>
+                                    <StackLayout Margin="6" Orientation="Horizontal" Spacing="18">
+
+                                        <Frame WidthRequest="30" HeightRequest="30" Padding="0" CornerRadius="15">
+                                            <Image Source="{Binding thumbnail.Address}" Aspect="Fill" />
+                                        </Frame>
+
+                                        <Label VerticalOptions="Center" FontSize="16" Text="{Binding name}" />
+
+                                    </StackLayout>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+
+        <ScrollView Orientation="Horizontal" Grid.Row="1">
+            <CollectionView SelectionMode="Single" ItemsSource="{Binding Amount}" ItemsLayout="HorizontalList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Frame Padding="0" HeightRequest="20" WidthRequest="20" CornerRadius="10" Margin="3" HasShadow="False">
+                                <Label HeightRequest="20" WidthRequest="20" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="12" Text="{Binding}" />
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </Grid>
+</ContentPage>
